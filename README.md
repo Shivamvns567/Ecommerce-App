@@ -55,14 +55,14 @@ Start AuthApp
 
 cd AuthApp
 dotnet run
-# Runs on https://localhost:5001
+Runs on https://localhost:5001
 
 
 Start EcomApp
 
 cd EcomApp
 dotnet run
-# Runs on https://localhost:5002
+Runs on https://localhost:5002
 
 
 Test the Flow
