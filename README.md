@@ -1,35 +1,43 @@
 🛍️ MyShop – Auth + E-Commerce Microservice Demo
 
-A dual-project .NET 8 solution showcasing modern JWT authentication and microservice integration.
-
-This repository contains two lightweight, ready-to-run ASP.NET Core MVC applications:
+A dual-project .NET 8 solution demonstrating JWT-based authentication and microservice communication between two ASP.NET Core MVC applications.
 
 🔐 AuthApp – Authentication Microservice
 
-Handles user login with JWT issuance.
-
-Includes a Bootstrap-styled login page with unified branding.
-
-Configurable JWT settings and client redirect URLs in appsettings.json.
+AuthApp handles user authentication and issues JWT tokens.
+Provides a Bootstrap-styled login page with unified site branding.
+Generates and signs JWTs upon successful login.
+Configuration for JWT keys, issuer, audience, and return URLs lives in appsettings.json.
+After successful authentication, it redirects the user back to EcomApp with the token attached to the URL.
 
 🛒 EcomApp – E-Commerce Client
 
-Consumes JWTs issued by AuthApp.
+EcomApp consumes and validates JWTs issued by AuthApp to manage secure user sessions.
+Validates received JWTs using the same secret key and configuration.
+Stores valid tokens in cookies and sets the authenticated user context.
+Includes a simple storefront (Index) and a protected checkout page (Checkout).
+Shares a consistent UI theme (logo, colors, and navigation) with AuthApp.
 
-Verifies tokens and manages authenticated sessions.
+🔄 Authentication Flow
 
-Displays a simple storefront and checkout page.
-
-Unified UI theme shared with AuthApp (logo, colors, navigation).
+User visits EcomApp and clicks Login.
+The app redirects to the AuthApp login page.
+The user logs in → AuthApp generates a signed JWT.
+The user is redirected back to EcomApp with the JWT in the query string.
+EcomApp validates the token, stores it, and grants access to protected routes like /Home/Checkout.
+This demonstrates a real-world microservice-based authentication flow, where one service issues secure tokens and another validates them independently.
 
 🧭 Folder Structure
+
 MySolution/
+ 
  ├─ AuthApp/
  │   ├─ Controllers/
  │   ├─ Views/
  │   ├─ wwwroot/
  │   ├─ appsettings.json
  │   └─ Program.cs
+ 
  └─ EcomApp/
      ├─ Controllers/
      ├─ Views/
@@ -39,85 +47,29 @@ MySolution/
 
 ⚙️ Key Features
 
-✅ JWT-based Authentication Flow (AuthApp → EcomApp)
-
-🔁 Cross-App Token Validation with shared secret key
-
-🎨 Consistent Bootstrap UI & Branding
-
-🧩 Modular Microservice Setup – independent ports, seamless linking
-
-🔒 Demo Credentials: user@example.com / Pass123!
-
-🚀 How to Run
-
-Start AuthApp
-
-cd AuthApp
-dotnet run
-Runs on https://localhost:5001
-
-
-Start EcomApp
-
-cd EcomApp
-dotnet run
-Runs on https://localhost:5002
-
-
-Test the Flow
-
-Visit: https://localhost:5002
-
-Click Login → Redirects to AuthApp
-
-Sign in with demo credentials
-
-Redirects back to EcomApp (authenticated session active)
-
-Access /Home/Checkout to see a protected page
+✅ JWT-based authentication flow (AuthApp → EcomApp)
+🔁 Cross-app token validation with shared secret key
+🎨 Unified Bootstrap 5 UI and branding
+🧩 Modular microservice setup with independent ports
+🔒 Demo credentials: user@example.com
+ / Pass123!
 
 🧠 Concepts Demonstrated
 
-ASP.NET Core MVC
-
-JWT Authentication & Validation
-
-Cross-App Communication
-
-Role-based claims foundation
-
-Bootstrap 5 integration
-
-Microservice architecture principles
-
-🖼️ Screenshots (Optional)
-
-Add screenshots of login and home page here for better presentation.
-
-💡 Future Enhancements
-
-🔄 Refresh tokens
-
-🚪 Token invalidation on logout
-
-👥 Role-based authorization
-
-🔗 API-based user info sharing
-
-⚙️ Centralized configuration service
+ASP.NET Core MVC fundamentals
+JWT creation and validation
+Cross-application communication
+Claims-based identity handling
+Microservice architecture pattern
+Bootstrap integration for responsive design
 
 📦 Tech Stack
 
 .NET 8 / ASP.NET Core MVC
-
 Bootstrap 5
-
 JWT (System.IdentityModel.Tokens.Jwt)
-
 C#
 
-👨‍💻 Author
+👨‍💻 Author - Shivam Singh
 
-Shivam Singh
-A minimal, educational project demonstrating real-world authentication flow between microservices in ASP.NET Core.
+A minimal, educational project demonstrating secure authentication and communication between microservices in ASP.NET Core.
